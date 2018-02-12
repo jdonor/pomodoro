@@ -1,0 +1,22 @@
+{
+  "name": "pomodoro",
+  "version": "1.0.0",
+  "description": "A pomodoro timer to increase productivity",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdonor/pomodoro.git"
+  },
+  "author": "Josiah Donor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdonor/pomodoro/issues"
+  },
+  "homepage": "https://github.com/jdonor/pomodoro#readme",
+  "devDependencies": {
+    "jest": "^22.2.2"
+  }
+}
