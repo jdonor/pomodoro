@@ -13,6 +13,6 @@ A pomodoro timer to increase productivity
 - Run ```npm test``` to execute the tests
 
 ## Deploy
-- Any commits pushed to ```master``` that build successfully in [Travis](https://travis-ci.org/) will be deployed to GitHub Pages
+- Any commits pushed to ```master``` that builds successfully in [Travis](https://travis-ci.org/) will be deployed to GitHub Pages
   - This must be done with a pull request from a feature branch
 - The live project can be [viewed here](https://jdonor.github.io/pomodoro/)
