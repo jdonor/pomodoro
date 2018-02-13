@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Layout */
+#container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(hsl(195, 50%, 90%), hsl(195, 50%, 80%));
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#content {
+  background: hsl(0, 0%, 20%);
+  color: hsl(0, 0%, 90%);
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+/* Timer */
+#timer {
+  text-align: center;
+}
+
+#time {
+  font-size: 60px;
+}
+
+#message {
+  font-size: 30px;
+}
