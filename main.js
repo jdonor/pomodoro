@@ -1,3 +1,32 @@
+modes = Object.freeze({
+  WORK: 0,
+  BREAK: 1
+});
+
+class Timer {
+  constructor() {
+    this.worktimeLength = 1500;
+    this.breaktimeLength = 300;
+    this.mode = modes.WORK;
+    this.timeRemaining = 1500;
+  }
+
+  reset() {
+    this.timeRemaining = this.worktimeLength;
+    this.mode = modes.WORK;
+  }
+
+  start() {
+    this.countdown = setInterval(() => {
+      this.timeRemaining--;
+    }, 1000);
+  }
+
+  switchMode() {
+    this.mode = this.mode === modes.WORK ? modes.BREAK : modes.WORK;
+  }
+}
+
 Number.prototype.pad = function (size = 2) {
   let s = String(this);
   while (s.length < size) {
@@ -15,5 +44,12 @@ function formatDisplay(seconds) {
 }
 
 module.exports = {
-  formatDisplay
+  formatDisplay,
+  Timer,
+  modes
 };
+
+// Wire up to the DOM
+const timer = new Timer();
+const content = document.querySelector('#content')
+// content.addEventListener('onclick', )
