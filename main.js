@@ -19,6 +19,7 @@ class Timer {
   start() {
     this.countdown = setInterval(() => {
       this.timeRemaining--;
+      console.log(this.timeRemaining);
     }, 1000);
   }
 
@@ -48,8 +49,3 @@ module.exports = {
   Timer,
   modes
 };
-
-// Wire up to the DOM
-const timer = new Timer();
-const content = document.querySelector('#content')
-// content.addEventListener('onclick', )
