@@ -124,6 +124,15 @@ describe('Timer class', () => {
 
         expect(timer.timeRemaining).toBe(0);
       });
+
+      test('should only start once', () => {
+        timer = new Timer();
+        timer.start();
+        timer.start();
+        jest.advanceTimersByTime(1000);
+
+        expect(timer.timeRemaining).toBe(1499);
+      });
     });
 
     describe('switchMode', () => {

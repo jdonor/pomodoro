@@ -10,6 +10,7 @@ class Timer {
     this.mode = modes.WORK;
     this._timeRemaining = 1500;
     this.timeUpdated = () => {};
+    this._paused = true;
   }
 
   get timeRemaining() {
@@ -27,6 +28,10 @@ class Timer {
   }
 
   start() {
+    if (!this._paused) return;
+
+    this._paused = false;
+
     this.countdown = setInterval(() => {
       this.timeRemaining = this.timeRemaining - 1;
 
