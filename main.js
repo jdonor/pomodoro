@@ -8,7 +8,17 @@ class Timer {
     this.worktimeLength = 1500;
     this.breaktimeLength = 300;
     this.mode = modes.WORK;
-    this.timeRemaining = 1500;
+    this._timeRemaining = 1500;
+    this.timeUpdated = () => {};
+  }
+
+  get timeRemaining() {
+    return this._timeRemaining;
+  }
+
+  set timeRemaining(time) {
+    this._timeRemaining = time;
+    this.timeUpdated();
   }
 
   reset() {
@@ -18,8 +28,11 @@ class Timer {
 
   start() {
     this.countdown = setInterval(() => {
-      this.timeRemaining--;
-      console.log(this.timeRemaining);
+      this.timeRemaining = this.timeRemaining - 1;
+
+      if (this.timeRemaining <= 0) {
+        clearInterval(this.countdown);
+      }
     }, 1000);
   }
 
@@ -44,8 +57,27 @@ function formatDisplay(seconds) {
   return `${minutes.pad()}:${seconds.pad()}`;
 }
 
-module.exports = {
-  formatDisplay,
-  Timer,
-  modes
-};
+// Node-only code
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = {
+    formatDisplay,
+    Timer,
+    modes
+  };
+} else { // Browser-only code
+  function startTimer() {
+    timer.start();
+  }
+
+  // Wire up to the DOM
+  const timerDiv = document.querySelector('#timer');
+  const time = document.querySelector('#time');
+  const timer = new Timer();
+
+  function updateTime() {
+    time.textContent = formatDisplay(timer.timeRemaining);
+  }
+
+  timer.timeUpdated = updateTime;
+  timerDiv.addEventListener('click', startTimer);
+}
