@@ -133,6 +133,52 @@ describe('Timer class', () => {
 
         expect(timer.timeRemaining).toBe(1499);
       });
+
+      test('should update the message', () => {
+        timer = new Timer();
+        timer.start();
+
+        expect(timer.message).toBe('Pause');
+      });
+
+      test('should raise the messageUpdated event', () => {
+        let f = jest.fn();
+        timer = new Timer();
+        timer.messageUpdated = f;
+        timer.start();
+
+        expect(f).toHaveBeenCalled();
+      });
+    });
+
+    describe('pause', () => {
+      test('should prevent the time from decreasing', () => {
+        timer = new Timer();
+        timer.start();
+        jest.advanceTimersByTime(1000);
+        timer.pause();
+        jest.advanceTimersByTime(1000);
+
+        expect(timer.timeRemaining).toBe(1499);
+      });
+
+      test('should update the message', () => {
+        timer = new Timer();
+        timer.start();
+        timer.pause();
+
+        expect(timer.message).toBe('Start');
+      });
+
+      test('should raise the messageUpdated event', () => {
+        let f = jest.fn();
+        timer = new Timer();
+        timer.start();
+        timer.messageUpdated = f;
+        timer.pause();
+
+        expect(f).toHaveBeenCalled();
+      });
     });
 
     describe('switchMode', () => {
