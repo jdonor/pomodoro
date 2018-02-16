@@ -9,8 +9,10 @@ class Timer {
     this.breaktimeLength = 300;
     this.mode = modes.WORK;
     this._timeRemaining = 1500;
-    this.timeUpdated = () => {};
     this._paused = true;
+    this._message = 'Start';
+    this.timeUpdated = () => {};
+    this.messageUpdated = () => {};
   }
 
   get timeRemaining() {
@@ -22,6 +24,15 @@ class Timer {
     this.timeUpdated();
   }
 
+  get message() {
+    return this._message;
+  }
+
+  set message(message) {
+    this._message = message;
+    this.messageUpdated();
+  }
+
   reset() {
     this.timeRemaining = this.worktimeLength;
     this.mode = modes.WORK;
@@ -31,6 +42,7 @@ class Timer {
     if (!this._paused) return;
 
     this._paused = false;
+    this.message = 'Pause';
 
     this.countdown = setInterval(() => {
       this.timeRemaining = this.timeRemaining - 1;
@@ -39,6 +51,22 @@ class Timer {
         clearInterval(this.countdown);
       }
     }, 1000);
+  }
+
+  pause() {
+    if (this._paused) return;
+
+    this._paused = true;
+    clearInterval(this.countdown);
+    this.message = 'Start'
+  }
+
+  togglePause() {
+    if (this._paused) {
+      this.start();
+    } else {
+      this.pause();
+    }
   }
 
   switchMode() {
@@ -70,19 +98,25 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     modes
   };
 } else { // Browser-only code
-  function startTimer() {
-    timer.start();
+  function timerClick() {
+    timer.togglePause();
   }
 
   // Wire up to the DOM
   const timerDiv = document.querySelector('#timer');
   const time = document.querySelector('#time');
+  const message = document.querySelector('#message');
   const timer = new Timer();
 
   function updateTime() {
     time.textContent = formatDisplay(timer.timeRemaining);
   }
-
   timer.timeUpdated = updateTime;
-  timerDiv.addEventListener('click', startTimer);
+
+  function updateMessage() {
+    message.textContent = timer.message;
+  }
+  timer.messageUpdated = updateMessage;
+
+  timerDiv.addEventListener('click', timerClick);
 }
