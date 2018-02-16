@@ -98,19 +98,25 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     modes
   };
 } else { // Browser-only code
-  function startTimer() {
-    timer.start();
+  function timerClick() {
+    timer.togglePause();
   }
 
   // Wire up to the DOM
   const timerDiv = document.querySelector('#timer');
   const time = document.querySelector('#time');
+  const message = document.querySelector('#message');
   const timer = new Timer();
 
   function updateTime() {
     time.textContent = formatDisplay(timer.timeRemaining);
   }
-
   timer.timeUpdated = updateTime;
-  timerDiv.addEventListener('click', startTimer);
+
+  function updateMessage() {
+    message.textContent = timer.message;
+  }
+  timer.messageUpdated = updateMessage;
+
+  timerDiv.addEventListener('click', timerClick);
 }
