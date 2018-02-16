@@ -181,6 +181,26 @@ describe('Timer class', () => {
       });
     });
 
+    describe('togglePause', () => {
+      test('should call start', () => {
+        timer = new Timer();
+        timer.togglePause();
+        jest.advanceTimersByTime(1000);
+
+        expect(timer.timeRemaining).toBe(1499);
+      });
+
+      test('should call pause', () => {
+        timer = new Timer();
+        timer.start();
+        jest.advanceTimersByTime(1000);
+        timer.togglePause();
+        jest.advanceTimersByTime(1000);
+
+        expect(timer.timeRemaining).toBe(1499);
+      });
+    });
+
     describe('switchMode', () => {
       test('should switch from work to break', () => {
         timer.reset();

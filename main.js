@@ -61,6 +61,14 @@ class Timer {
     this.message = 'Start'
   }
 
+  togglePause() {
+    if (this._paused) {
+      this.start();
+    } else {
+      this.pause();
+    }
+  }
+
   switchMode() {
     this.mode = this.mode === modes.WORK ? modes.BREAK : modes.WORK;
   }
